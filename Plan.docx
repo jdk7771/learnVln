@@ -1,0 +1,120 @@
+﻿
+
+
+                                                                                    Plan
+论文读完之后要做笔记   目前需要打卡的就是python和cpp cpp每天一小时
+
+
+1.关于 VLN 两条主线：1是关于VLN的进度   2是关于python 的
+
+第一阶段：标准化与规范（第1-4周）
+“像造机器人一样造代码”
+    • 科研主线（VLN入门）
+        ◦ 任务：阅读R2R和VLN-CE（连续环境）综述。配置 Habitat-Sim 环境。
+        ◦ 产出：跑通一个Headless（无头模式）的模拟器Demo，能够随机游走并保存图片。
+        ◦ 重点：理解什么是 Action Space（离散 vs 连续），这直接对应机器人的控制指令。
+    • 工程支线（Project A）：The OOP Snake (Gym-Standard)
+        ◦ 目标：写一个贪吃蛇，但必须符合 OpenAI Gym / Farama Gymnasium 标准。
+        ◦ 机器人思维注入：
+            ▪ 接口标准化：你的环境必须有 step(action) -> obs, reward, done, info。这是所有机器人控制算法的通用接口。
+            ▪ 模块解耦：把 Physics（蛇的移动、碰撞检测）和 Renderer（画面绘制）完全分开。现实中的机器人没有屏幕，只有物理实体。
+        ◦ 技能点：Class/Inheritance, Unit Testing, Design Patterns.
+
+第二阶段：数据流与系统优化（第5-8周）
+“处理海量数据的工业级能力”
+    • 科研主线（复现与魔改）
+        ◦ 任务：选定一个LLM-based或Transformer-based的基线（如 VLN-DUET 或 NaVID），跑通Training。
+        ◦ 产出：复现出SOTA（State-of-the-art）结果。
+        ◦ 重点：找出原有代码在数据加载上的瓶颈（VLN的大坑通常是IO）。
+    • 工程支线（Project B）：The Data Juicer (Parallel Pipeline)
+        ◦ 目标：构建一个多进程数据预处理管道。
+        ◦ 机器人思维注入：
+            ▪ Rosbag思维：机器人产生的数据是流式的。写一个 DataGenerator，模拟传感器源源不断产生数据的过程。
+            ▪ 高并发：使用 multiprocessing 和 Shared Memory。模拟器（Habitat）通常在CPU跑，模型在GPU跑，如何让它们不互相等待？
+        ◦ 技能点：Multiprocessing, Generators (yield), HDF5/LMDB, Linux I/O.
+
+第三阶段：数学核心与空间感知（第9-12周）
+“打破2D屏幕，建立3D上帝视角”
+    • 科研主线（Idea落地）
+        ◦ 任务：植入你的创新点（比如“具有记忆的导航Prompt”或“拓扑地图构建”）。
+        ◦ 产出：在Validation集上看到初步的分数提升。
+    • 工程支线（Project C）：NumPy Ray-Caster (Lidar Simulation)
+        ◦ 目标：用纯NumPy实现一个伪3D渲染引擎（类似《毁灭战士》）。
+        ◦ 机器人思维注入：
+            ▪ 激光雷达（Lidar）原理：你计算的每一条射线（Ray），在机器人领域就是激光雷达的一个点。
+            ▪ 坐标变换：死磕 世界坐标系（World Frame）到 机器人坐标系（Body Frame）再到 相机坐标系（Camera Frame）的变换矩阵。不懂这个就做不了机器人。
+        ◦ 技能点：Linear Algebra, Rotation Matrix, NumPy Broadcasting.
+
+第四阶段：自动化与仿真桥接（第13-16周）
+“从虚拟走向现实的桥梁”
+    • 科研主线（大规模实验）
+        ◦ 任务：进行Ablation Study（消融实验），验证你的Idea在不同场景下的鲁棒性。
+    • 工程支线（Project D）：The ROS 2 Bridge (Mini Sim-to-Real)
+        ◦ 目标：打通 VLN 代码与 ROS 2。
+        ◦ 操作：
+            1. 安装 ROS 2 Humble 和 Gazebo (或者 TurtleBot3 仿真)。
+            2. 写一个 ROS Node（Python写）：订阅 Gazebo 的 /camera/image_raw，喂给你的 VLN 模型，模型输出动作，发布 /cmd_vel 控制 Gazebo 里的小车移动。
+        ◦ 机器人思维注入：
+            1. 异步通信：理解 ROS 的 Pub/Sub 机制。
+            2. 控制闭环：不仅是导航，还要控制小车不撞墙（简单的避障逻辑）。
+        ◦ 技能点：ROS 2, Topic/Node, Docker (for ROS env), Control Theory Basics.
+
+2.是关于cpp编程
+第一阶段：补地基（耗时：2-3 周，每天 1 小时）
+目标：能看懂基本的语法，理解 C++ 和 Python 最大的区别（内存管理）。
+不要去啃几百页的《C++ Primer》（那本书太厚了，适合当字典查，不适合从头读）。
+推荐资源：
+    1. 视频（首选）：The Cherno (YouTube/B站搬运) 的 C++ 系列。
+        ◦ 理由：讲得极好，非常直观，专门讲“内存”和“指针”讲得很透。只看前 30-40 集关于基础语法的即可。
+    2. 网站：LearnCpp.com
+        ◦ 理由：这是公认最好的 C++ 入门教程网站，更新及时，比国内很多教材靠谱。
+重点攻克这几个概念（不懂这几个，没法看 Effective C++）：
+    • 指针与引用 (Pointers & References)：这是 C++ 的灵魂。必须搞懂 * 和 & 的区别。
+    • 内存管理 (Stack vs Heap)：知道 new/delete 干了什么，为什么会内存泄漏。
+    • 类与对象 (Class, Constructor, Destructor)：构造函数、析构函数是干嘛的。
+    • 虚函数与多态 (Virtual functions)：这是面试必问，也是 ROS 继承机制的基础。
+
+第二阶段：实战特训（穿插在你的科研间隙）
+目标：为了应付面试手撕代码，以及熟悉 STL（标准模板库）。
+当你理解了上面那些概念后，不要继续看书了，直接上手写代码。
+操作方法：
+    • 打开 LeetCode。
+    • 把你以前用 Python 写过的简单题（比如 数组、链表、二叉树），强迫自己用 C++ 重写一遍。
+    • 你会遇到的痛苦：字符串处理好麻烦（std::string）、数组怎么越界了（std::vector）、Map 怎么用。
+    • 解决痛苦：这时候去查文档，学 STL。
+        ◦ 熟练掌握 std::vector, std::unordered_map, std::sort。
+        ◦ 这就够应付 80% 的算法面试题了。
+
+第三阶段：进阶与规范（这时候才看 Effective C++）
+判定标准：当你用 C++ 刷了 50 道 LeetCode，且大概知道 class 怎么写的时候。
+这时候，你可以打开 《Effective C++ (第3版)》 了。但即便如此，也不用全看，只看对机器人/算法岗最有用的这几条（按优先级排序）：
+    1. 资源管理（Resource Management）：
+        ◦ 条款 13：以对象管理资源 (RAII)。这是 C++ 最重要的设计模式。
+        ◦ 条款 14：在资源管理类中小心 copying 行为。
+        ◦ 对应场景：机器人开发中经常涉及雷达/相机驱动的开启和关闭，RAII 能救命。
+    2. 构造/析构/赋值运算：
+        ◦ 条款 05-12：了解为什么如果你不写构造函数，编译器会帮你生成什么乱七八糟的东西。
+        ◦ 条款 07：为多态基类声明 virtual 析构函数。（这条不懂，代码必崩）。
+    3. 定制 new 和 delete：
+        ◦ 直接跳过。做算法的很少需要自己重写内存分配器，那是做游戏引擎的人干的。
+
+特别补充：针对机器人/VLN 的“外挂”知识
+因为你的目标是机器人，除了标准 C++，你必须在看书之外，额外了解以下两个现代 C++ 特性（这也是《Effective C++》老版本里没讲太细，但现代工业界必用的）：
+    1. 智能指针 (Smart Pointers)：
+        ◦ std::shared_ptr 和 std::unique_ptr。
+        ◦ 原因：ROS2 的代码里全是这个。现在的 C++ 只有在极其底层的时候才用原始指针（Raw Pointer），上层逻辑全是用智能指针。如果你只会 new / delete，会被认为技术栈太老旧。
+    2. Lambda 表达式：
+        ◦ [](){ ... } 这种写法。
+        ◦ 原因：ROS 中的回调函数（Callback）、多线程处理，现在都喜欢用 Lambda 写。
+总结建议
+    1. 现在：扔掉《Effective C++》。
+    2. 这周末：去 B 站搜 "Cherno C++"，每天看 3-4 集，吃饭时候看就行。
+    3. 做实验累了：刷一道 LeetCode (Easy 难度)，强迫用 C++ 写。
+    4. 三个月后：当你觉得“我 C++ 好像入门了，但总觉得写得不优雅”的时候，买一本《Effective C++》放在枕头边，每天睡前读一条。
+
+所以现在需要打卡
+
+
+
+
+
