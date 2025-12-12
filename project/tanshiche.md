@@ -22,27 +22,29 @@ __init__(self, grid_size=10)
 
 定义 self.observation_space (tuple)。
 
-reset(self)
 
-功能：重置环境状态。
+    reset(self)
 
-返回：observation (类型自定义，建议是字典或numpy数组)。
+    功能：重置环境状态。
 
-step(self, action)
+    返回：observation (类型自定义，建议是字典或numpy数组)。
 
-参数：action (int)，取值 0-3。
 
-功能：计算下一帧的物理状态。
+    step(self, action)
 
-返回：一个包含 4 个元素的 Tuple (observation, reward, done, info)。
+    参数：action (int)，取值 0-3。
 
-observation: 当前状态（同 reset 的返回值）。
+    功能：计算下一帧的物理状态。
 
-reward (float): 吃到食物 +1，撞墙/撞自己 -1，普通走步 0（或者 -0.01 鼓励快走）。
+    返回：一个包含 4 个元素的 Tuple (observation, reward, done, info)。
 
-done (bool): 游戏是否结束。
+        observation: 当前状态（同 reset 的返回值）。
 
-info (dict): 调试信息，可以为空 {}。
+        reward (float): 吃到食物 +1，撞墙/撞自己 -1，普通走步 0（或者 -0.01 鼓励快走）。
+
+        done (bool): 游戏是否结束。
+
+        info (dict): 调试信息，可以为空 {}。
 S
 render(self)
 
