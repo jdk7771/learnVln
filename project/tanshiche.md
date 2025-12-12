@@ -43,7 +43,7 @@ reward (float): 吃到食物 +1，撞墙/撞自己 -1，普通走步 0（或者 
 done (bool): 游戏是否结束。
 
 info (dict): 调试信息，可以为空 {}。
-
+S
 render(self)
 
 功能：打印当前网格的字符画。

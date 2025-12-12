@@ -14,7 +14,7 @@ class SnakeEnv():
         self.map = np.zeros((self.grad_size ,self.grad_size ))
         self.bodysize = 3
         self.apple = (random.randint(1,19),random.randint(1,19))
-        
+        self.action_space = 4
 
     def reset(self):
         self.__init__(self.grad_size)
@@ -22,6 +22,7 @@ class SnakeEnv():
 
     def action(self,acti):
         if acti == 1:
+            return 1
             
         return (observation, reward, done, info)
 
