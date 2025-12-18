@@ -46,7 +46,7 @@
         ◦ 机器人思维注入：
             ▪ 激光雷达（Lidar）原理：你计算的每一条射线（Ray），在机器人领域就是激光雷达的一个点。
             ▪ 坐标变换：死磕 世界坐标系（World Frame）到 机器人坐标系（Body Frame）再到 相机坐标系（Camera Frame）的变换矩阵。不懂这个就做不了机器人。
-        ◦ 技能点：Linear Algebra, Rotation Matrix, NumPy Broadcasting.
+        ◦ 技能点：Linear Algebra, Rotation Matrix, NumPy Broadcasting. EIgen kuhanshu 
 
 第四阶段：自动化与仿真桥接（第13-16周）
 “从虚拟走向现实的桥梁”
@@ -61,6 +61,8 @@
             1. 异步通信：理解 ROS 的 Pub/Sub 机制。
             2. 控制闭环：不仅是导航，还要控制小车不撞墙（简单的避障逻辑）。
         ◦ 技能点：ROS 2, Topic/Node, Docker (for ROS env), Control Theory Basics.
+
+
 
 2.是关于cpp编程
 第一阶段：补地基（耗时：2-3 周，每天 1 小时）
@@ -77,6 +79,8 @@
     • 类与对象 (Class, Constructor, Destructor)：构造函数、析构函数是干嘛的。
     • 虚函数与多态 (Virtual functions)：这是面试必问，也是 ROS 继承机制的基础。
 
+
+
 第二阶段：实战特训（穿插在你的科研间隙）
 目标：为了应付面试手撕代码，以及熟悉 STL（标准模板库）。
 当你理解了上面那些概念后，不要继续看书了，直接上手写代码。
@@ -87,6 +91,8 @@
     • 解决痛苦：这时候去查文档，学 STL。
         ◦ 熟练掌握 std::vector, std::unordered_map, std::sort。
         ◦ 这就够应付 80% 的算法面试题了。
+
+
 
 第三阶段：进阶与规范（这时候才看 Effective C++）
 判定标准：当你用 C++ 刷了 50 道 LeetCode，且大概知道 class 怎么写的时候。
@@ -100,6 +106,8 @@
         ◦ 条款 07：为多态基类声明 virtual 析构函数。（这条不懂，代码必崩）。
     3. 定制 new 和 delete：
         ◦ 直接跳过。做算法的很少需要自己重写内存分配器，那是做游戏引擎的人干的。
+
+
 
 特别补充：针对机器人/VLN 的“外挂”知识
 因为你的目标是机器人，除了标准 C++，你必须在看书之外，额外了解以下两个现代 C++ 特性（这也是《Effective C++》老版本里没讲太细，但现代工业界必用的）：
@@ -116,6 +124,10 @@
     4. 三个月后：当你觉得“我 C++ 好像入门了，但总觉得写得不优雅”的时候，买一本《Effective C++》放在枕头边，每天睡前读一条。
 
 所以现在需要打卡
+
+
+
+
 
 
 

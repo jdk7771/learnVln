@@ -1,0 +1,3 @@
+[submodule "VLN-CE"]
+	path = VLN-CE
+	url = https://github.com/jacobkrantz/VLN-CE.git
